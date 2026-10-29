@@ -1,0 +1,41 @@
+
+body {
+    background: #f4f6f9;
+    color: #212529;
+}
+
+.navbar {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.card {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.stat-card {
+    height: 100%;
+    transition: transform 0.15s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+}
+
+.stat-card h2 {
+    font-weight: 700;
+}
+
+.table th {
+    white-space: nowrap;
+}
+
+a {
+    text-decoration: none;
+}
+
+form .form-control,
+form .form-select {
+    border-radius: 8px;
+}
+

@@ -1,0 +1,65 @@
+
+{% extends "base.html" %}
+{% block title %}{{ 'Edit' if employee else 'Add' }} Employee | EMS{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card">
+      <div class="card-body p-4">
+        <h1>{{ 'Edit' if employee else 'Add' }} Employee</h1>
+
+        <form method="POST">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Full name</label>
+              <input class="form-control" name="name" maxlength="120" required
+                     value="{{ employee.name if employee else '' }}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Email</label>
+              <input class="form-control" type="email" name="email" maxlength="150" required
+                     value="{{ employee.email if employee else '' }}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Job title</label>
+              <input class="form-control" name="job_title" maxlength="100" required
+                     value="{{ employee.job_title if employee else '' }}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Department</label>
+              <select class="form-select" name="department_id" required>
+                <option value="">Choose department</option>
+                {% for department in departments %}
+                  <option value="{{ department.id }}"
+                    {% if employee and employee.department_id == department.id %}selected{% endif %}>
+                    {{ department.name }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Annual salary (₹)</label>
+              <input class="form-control" type="number" name="salary" min="0"
+                     max="9999999999.99" step="0.01" required
+                     value="{{ employee.salary if employee else '' }}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Joining date</label>
+              <input class="form-control" type="date" name="joining_date" required
+                     value="{{ employee.joining_date.isoformat() if employee else '' }}">
+            </div>
+          </div>
+
+          <div class="mt-4 d-flex gap-2">
+            <button class="btn btn-primary">Save Employee</button>
+            <a class="btn btn-outline-secondary" href="{{ url_for('employees') }}">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

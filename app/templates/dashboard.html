@@ -1,0 +1,59 @@
+
+{% extends "base.html" %}
+{% block title %}Dashboard | EMS{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1>Dashboard</h1>
+    <p class="text-muted mb-0">Employee management overview</p>
+  </div>
+  <a class="btn btn-primary" href="{{ url_for('employee_create') }}">+ Add Employee</a>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-4">
+    <div class="card stat-card"><div class="card-body">
+      <p class="text-muted mb-1">Active employees</p>
+      <h2>{{ total }}</h2>
+    </div></div>
+  </div>
+  <div class="col-md-4">
+    <div class="card stat-card"><div class="card-body">
+      <p class="text-muted mb-1">Departments</p>
+      <h2>{{ departments }}</h2>
+    </div></div>
+  </div>
+  <div class="col-md-4">
+    <div class="card stat-card"><div class="card-body">
+      <p class="text-muted mb-1">Inactive employees</p>
+      <h2>{{ inactive }}</h2>
+    </div></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <h4>Recently added employees</h4>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead><tr><th>Name</th><th>Job title</th><th>Department</th><th>Status</th></tr></thead>
+        <tbody>
+        {% for employee in recent %}
+          <tr>
+            <td>{{ employee.name }}</td>
+            <td>{{ employee.job_title }}</td>
+            <td>{{ employee.department.name }}</td>
+            <td><span class="badge bg-success">Active</span></td>
+          </tr>
+        {% else %}
+          <tr><td colspan="4" class="text-center text-muted">No employees yet.</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <a href="{{ url_for('employees') }}">View all employees →</a>
+  </div>
+</div>
+{% endblock %}
+
